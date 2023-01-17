@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body,
+      html {
+        height: 100%;
+        background: url(splash.png) fixed center no-repeat;
+        background-size: cover;
+      }
+
+      canvas.emscripten {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 0 none;
+        z-index: 9999999;
+      }
+
+      .loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+        cursor: none;
+      }
+
+      .loader-content {
+        text-align: center;
+      }
+
+      .loader div img {
+        margin-bottom: 30px;
+        height: 60%;
+      }
+
+      .progress-container {
+        width: 300px;
+        margin: auto;
+      }
+
+      .progress-bar {
+        height: 20px;
+        background-color: #65D634;
+        width: 100%;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .progress-bar-value {
+        width: 100%;
+        height: 100%;
+        background-color: #FD7908;
+        animation: indeterminateAnimation 2s infinite linear;
+        transform-origin: 0% 50%;
+      }
+
+      @keyframes indeterminateAnimation {
+        0% {
+          transform: translateX(0) scaleX(0);
+        }
+        40% {
+          transform: translateX(0) scaleX(0.4);
+        }
+        100% {
+          transform: translateX(100%) scaleX(0.5);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas
+      class="emscripten"
+      id="canvas"
+      oncontextmenu="event.preventDefault()"
+    ></canvas>
+    <div class="loader">
+      <div class="loader-content">
+        <img src="logo.gif" alt="Loading..." />
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-bar-value"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      Module = {
+        preRun: [],
+        postRun: [],
+        print: function (e) {
+          console.log(e);
+        },
+        printErr: function (e) {
+          console.error(e);
+        },
+        canvas: document.getElementById("canvas"),
+        totalDependencies: 0,
+      };
+    </script>
+    <script async src="index.js"></script>
+  </body>
+</html>
